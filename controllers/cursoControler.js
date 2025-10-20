@@ -5,16 +5,37 @@ exports.getAllCourses = async(req , res)=>{
     //1. Preparamos la consulta
     const sql = 'SELECT * FROM cursos'
     
-    //Validaciones
-
     try {
         //2.Ejecutamos la consulta
         const [result] = await db.query(sql) 
-        
+        if(result.length === 0){
+            res.status(402).json({
+                mensaje: 'No se encontraron registros'
+            })
+        }
+
         res.status(200).json(result)
     } catch (e) {
         console.error(e)
         res.status(500).json({error: e})
+    }
+}
+
+exports.getCourseById = async(req, res)=>{
+    const {id} = req.params
+    const SQL = 'SELECT * FROM cursos WHERE id = ?'
+
+    try {
+        const [result] =  await db.query(SQL, [id])
+
+        if(!result || result.length===0){
+            return res.status(402).json({
+                mensaje: `No se encontro un registro con el id:${id}`
+            })
+        }
+        return res.status(200).json(result)
+    } catch (e) {
+        return res.status(500).json({error:e})
     }
 }
 
@@ -30,6 +51,12 @@ exports.createCurso = async (req, res)=> {
     //Validaciones
 
     try {
+        if(!subcategoria || !docente || !titulo || !descripcion || !fecha_inicio || !fecha_fin || !duracion){
+            return res.status(400).json({
+                mensaje: 'No se aceptan valores vacios'
+            })
+        }
+
         const [result] = await db.query(sql,[subcategoria, docente, titulo, descripcion, fecha_inicio, fecha_fin, duracion])
 
         if(subcategoria === undefined){

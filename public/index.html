@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Virtuales</title>
+    <!-- CDN BOOTSTRAP -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <main>
+        <section>
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Lista de cursos:</h2>
+                    </div>
+                    <div class="card-body"></div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+
+            <div class="container mt-5">
+                <table class="table table-striped table-info table-hover" id="tabla">
+                    <thead>
+                        <tr>
+                            <th>N° ID</th>
+                            <th>subcategoria</th>
+                            <th>docente</th>
+                            <th>titulo</th>
+                            <th>descripcion</th>
+                            <th>Incio</th>
+                            <th>Fin</th>
+                            <th>Duración</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/cursos'
+        const datosTabla = document.querySelector("#tabla tbody")
+        
+        async function getCourses(){
+            const response = await fetch(API_URL,{method: 'get'})
+            console.log(response)
+            
+            if(!response.ok){
+                console.error("Problemas en la conexion")
+                return;
+            }
+            const cursos = await response.json()
+
+            if(cursos.length === 0){
+                console.log('No se encontraron personas')
+            }
+            //Verificamos que los datos estan llegando correctamente
+            console.log(cursos)
+
+            cursos.forEach(curso => {
+                const row = datosTabla.insertRow() //<tr>
+                
+                row.insertCell().textContent = curso.id
+                row.insertCell().textContent = curso.subcategoria
+                row.insertCell().textContent = curso.docente
+                row.insertCell().textContent = curso.titulo
+                row.insertCell().textContent = curso.descripcion
+                row.insertCell().textContent = curso.fecha_inico
+                row.insertCell().textContent = curso.fecha_fin
+                row.insertCell().textContent = curso.duracion
+
+                const actionCell = row.insertCell()
+                //Eliminar => botón (JS) => fetch() (Asíncrono)
+                const btnEliminar = document.createElement("button")
+                btnEliminar.textContent = 'Eliminar'
+                btnEliminar.classList.add('btn', 'btn-sm', 'btn-danger', 'mx-1')
+                btnEliminar.onclick = ()=> eliminarPersona(persona)
+
+                //Editar => enlace => se realizará en otra vista
+                const editLnk = document.createElement("a")
+                editLnk.href = "#"
+                editLnk.textContent = 'Editar'
+                editLnk.classList.add('btn', 'btn-sm', 'btn-warning', 'mx-1')
+
+                
+                //Agregamos el botón y el enlace a la nueva celda
+                actionCell.appendChild(btnEliminar)
+                actionCell.appendChild(editLnk)
+            });
+
+        }
+        document.addEventListener("DOMContentLoaded", ()=>{
+            getCourses()
+        })
+    </script>
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
