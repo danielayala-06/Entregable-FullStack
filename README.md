@@ -1,4 +1,4 @@
-# 🚀API RESTfull con Express, mysql y nodemon.
+# 🚀Entregable FullStack.
 ## 🗄️Base de Datos
 Primero vamos a necesitar crear esta Base de datos:
 ```SQL
