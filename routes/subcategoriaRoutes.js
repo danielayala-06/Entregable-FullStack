@@ -8,6 +8,6 @@ const subCategoriaController = require('../controllers/subcategoriaController')
 
 //Definimos las rutas
 router.get('/', subCategoriaController.getAllSubCategorias)
-router.get('/:id', subCategoriaController.getSubCategoriasByID)
+router.get('/:id', subCategoriaController.getSubCategoriasByCategoria)
 
 module.exports = router

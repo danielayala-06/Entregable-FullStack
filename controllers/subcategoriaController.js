@@ -17,10 +17,10 @@ exports.getAllSubCategorias = async (req, res)=> {
         return res.status(500).json({error:e})
     }
 }
-exports.getSubCategoriasByID = async (req, res)=> {
+exports.getSubCategoriasByCategoria = async (req, res)=> {
     const {id} = req.params
     
-    const sql = 'SELECT * FROM sub_categorias WHERE id = ?'
+    const sql = 'SELECT * FROM sub_categorias WHERE categoria = ?'
     
     try {
         const [result] = await db.query(sql,[id])

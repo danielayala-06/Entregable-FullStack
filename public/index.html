@@ -14,20 +14,25 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>Nuevo curso</h2>
+                        <form method="get" id="form-categoria">
+                            <div class="row mb-3 form-floating">
+                                <select name="categoria" id="selectCategoria" class="form-select" required>
+                                    <option value=""> --- </option>
+                                    <!-- Datos cargados -->   
+                                </select>
+                                <label for="categoria">categoria</label>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-lg">Ver SubCategorias</button>
+                            </div>
+                        </form>
                     </div>
                     <div class="card-body">
                         
-                        <form action="" class="form" method="get" id="form">
+                        <form class="form" method="post" id="form">
                             <input type="hidden" id="idCurso">
                             <div class="row">
-                                <div class="col-6 form-floating">
-                                    <select name="categoria" id="selectCategoria" class="form-select" required>
-                                        <option value=""> --- </option>
-                                        <!-- Datos cargados -->   
-                                    </select>
-                                    <label for="categoria">categoria</label>
-                                </div>
-                                <div class="col-6 form-floating">
+                                <div class="col-12 form-floating">
                                     <select name="subCategoria" id="selectSubCategoria" class="form-select" required>
                                         <option value=""> --- </option>
                                         <!-- Datos cargados -->   
@@ -79,13 +84,13 @@
                                 </div>
                             </div>
                             <!-- Fin row 3 -->
-                        </form>
-                        
-                    </div>
-                    <div class="card-footer text-end mt-3">
-                        <button class="btn btn-secondary mx-2" id="btnCancelar">Cancelar</button>
-                        <button class="btn btn-primary" id="btnGuardar">Registrar</button>
-                    </div>
+                            
+                        </div>
+                        <div class="card-footer text-end mt-3">
+                            <button class="btn btn-secondary mx-2" id="btnCancelar">Cancelar</button>
+                            <button class="btn btn-primary" id="btnGuardar" type="submit">Registrar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>

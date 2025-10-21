@@ -9,6 +9,7 @@ const cursoController = require('../controllers/cursoControler')
 //Definimos las rutas
 router.get('/', cursoController.getAllCourses)
 router.get('/:id', cursoController.getCourseById)
+router.get('/titulo/:titulo_text', cursoController.getCourseByTitulo)
 router.post('/', cursoController.createCurso)
 router.put('/:id', cursoController.editCurso)
 router.delete('/:id', cursoController.deleteCurso)

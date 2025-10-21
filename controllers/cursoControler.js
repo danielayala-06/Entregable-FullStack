@@ -39,6 +39,26 @@ exports.getCourseById = async(req, res)=>{
     }
 }
 
+exports.getCourseByTitulo = async(req, res)=>{
+    const {titulo_text} = req.params
+    const titulo = [`%${titulo_text}%`]
+    const SQL = 'SELECT * FROM cursos WHERE titulo LIKE ?'
+
+
+    try {
+        const [result] =  await db.query(SQL, titulo)
+
+        if(!result || result.length===0){
+            return res.status(402).json({
+                mensaje: `No se encontro un registro con el id:${id}`
+            })
+        }
+        return res.status(200).json(result)
+    } catch (e) {
+        return res.status(500).json({error:e})
+    }    
+}
+
 exports.createCurso = async (req, res)=> {
     if (!req.body) {
         return res.status(400).json({ error: 'No se recibieron datos en el cuerpo de la solicitud.' });
