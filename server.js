@@ -9,6 +9,7 @@ const path = require('path') //Express servir el frontend
 const cursoRoutes = require('./routes/cursoRoutes')
 const docenteRoutes = require('./routes/docenteRoutes')
 const subCategoriaRoutes = require('./routes/subcategoriaRoutes')
+const categoriaRoutes = require('./routes/categoriaRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 3000 
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 app.use('/api/cursos', cursoRoutes)
 app.use('/api/docentes', docenteRoutes)
 app.use('/api/subcategorias', subCategoriaRoutes)
+app.use('/api/categorias', categoriaRoutes)
 
 
 //Iniciamos el servidor

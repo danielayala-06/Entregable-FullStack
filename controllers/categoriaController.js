@@ -1,14 +1,8 @@
 //Accedemos a la BD:mysql/promise
 const db = require('../config/db')
 
-exports.getAllDocentes = async (req, res)=> {
-    /**
-     * id 			INT AUTO_INCREMENT PRIMARY KEY,
-    nombres 	VARCHAR(45) NOT NULL, 
-    apellidos 	VARCHAR(45) NOT NULL,
-     */
-    const sql = `SELECT id, concat(nombres, ' ',apellidos) AS 'fullName' FROM docentes
-`
+exports.getAllCategorias = async (req, res)=> {
+    const sql = 'SELECT * FROM categorias'
 
     try {
        const [result] = await db.query(sql)
@@ -23,10 +17,10 @@ exports.getAllDocentes = async (req, res)=> {
         return res.status(500).json({error:e})
     }
 }
-exports.getDocenteByID = async (req, res)=> {
+exports.getCategoriasByID = async (req, res)=> {
     const {id} = req.params
     
-    const sql = 'SELECT * FROM docentes WHERE id = ?'
+    const sql = 'SELECT * FROM categorias WHERE id = ?'
     
     try {
         const [result] = await db.query(sql,[id])
