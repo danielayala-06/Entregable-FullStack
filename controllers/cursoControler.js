@@ -44,20 +44,20 @@ exports.createCurso = async (req, res)=> {
         return res.status(400).json({ error: 'No se recibieron datos en el cuerpo de la solicitud.' });
     }
 
-    const {subcategoria, docente, titulo, descripcion, fecha_inicio, fecha_fin, duracion} = req.body
+    const {subcategoria, docente, titulo, descripcion, fecha_inicio, fecha_fin, duracion, precio} = req.body
 
-    const sql = "INSERT INTO cursos(subcategoria, docente, titulo, descripcion, fecha_inicio, fecha_fin, duracion) VALUES(?,?,?,?,?,?,?)"
+    const sql = "INSERT INTO cursos(subcategoria, docente, titulo, descripcion, fecha_inicio, fecha_fin, duracion, precio) VALUES(?,?,?,?,?,?,?,?)"
     
     //Validaciones
 
     try {
-        if(!subcategoria || !docente || !titulo || !descripcion || !fecha_inicio || !fecha_fin || !duracion){
+        if(!subcategoria || !docente || !titulo || !descripcion || !fecha_inicio || !fecha_fin || !duracion || !precio){
             return res.status(400).json({
                 mensaje: 'No se aceptan valores vacios'
             })
         }
 
-        const [result] = await db.query(sql,[subcategoria, docente, titulo, descripcion, fecha_inicio, fecha_fin, duracion])
+        const [result] = await db.query(sql,[subcategoria, docente, titulo, descripcion, fecha_inicio, fecha_fin, duracion, precio])
 
         if(subcategoria === undefined){
             return res.status(400).json({mensaje: 'subcategoria no puede ser undefined'})
@@ -79,13 +79,13 @@ exports.editCurso = async (req, res) => {
     const {id} = req.params
 
     //Obtenemos los nuevos valores para los campos
-    const {subcategoria, docente, titulo, descripcion, fecha_fin, fecha_inicio, duracion} = req.body
+    const {subcategoria, docente, titulo, descripcion, fecha_fin, fecha_inicio, duracion, precio} = req.body
 
     //Preparamos el sql
-    const SQL = 'UPDATE cursos SET subcategoria=?, docente=?, titulo=?, descripcion=?, fecha_fin=?, fecha_inicio=?, duracion=? WHERE id =?'
+    const SQL = 'UPDATE cursos SET subcategoria=?, docente=?, titulo=?, descripcion=?, fecha_fin=?, fecha_inicio=?, duracion=?, precio=? WHERE id =?'
 
     try {
-        const [resut] = await db.query(SQL,[subcategoria, docente, titulo, descripcion, fecha_fin, fecha_inicio, duracion, id])
+        const [resut] = await db.query(SQL,[subcategoria, docente, titulo, descripcion, fecha_fin, fecha_inicio, duracion, precio, id])
         if(resut.affectedRows === 0){
             return res(402).json({mensaje: 'No se encontro el curso a actualizar'})
         }

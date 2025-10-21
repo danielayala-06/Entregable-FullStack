@@ -7,6 +7,8 @@ const path = require('path') //Express servir el frontend
 
 //LLamamos al enrutador
 const cursoRoutes = require('./routes/cursoRoutes')
+const docenteRoutes = require('./routes/docenteRoutes')
+const subCategoriaRoutes = require('./routes/subcategoriaRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 3000 
@@ -33,6 +35,8 @@ app.get('/', (req, res) => {
 
 //Rutas API
 app.use('/api/cursos', cursoRoutes)
+app.use('/api/docentes', docenteRoutes)
+app.use('/api/subcategorias', subCategoriaRoutes)
 
 
 //Iniciamos el servidor
